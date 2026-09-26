@@ -48,20 +48,21 @@ windows.forEach((win) => {
   let offsetX = 0;
   let offsetY = 0;
 
-  win.addEventListener("mousedown", () => {
-    highestZIndex++;
-    win.style.zIndex = highestZIndex;
-  });
+  ["mousedown", "touchstart"].forEach((el) => {
+    win.addEventListener(el, () => {
+      highestZIndex++;
+      win.style.zIndex = highestZIndex;
+    });
+    header.addEventListener(el, (e) => {
+      if (e.target.classList.contains("window-close-btn")) return;
 
-  header.addEventListener("mousedown", (e) => {
-    if (e.target.classList.contains("window-close-btn")) return;
+      isDragging = true;
+      offsetX = e.clientX - win.offsetLeft;
+      offsetY = e.clientY - win.offsetTop;
 
-    isDragging = true;
-    offsetX = e.clientX - win.offsetLeft;
-    offsetY = e.clientY - win.offsetTop;
-
-    header.style.cursor = "grabbing";
-    document.body.style.userSelect = "none";
+      header.style.cursor = "grabbing";
+      document.body.style.userSelect = "none";
+    });
   });
 
   document.addEventListener("mousemove", (e) => {
@@ -85,12 +86,14 @@ windows.forEach((win) => {
   });
 
   // Fin du glissement
-  document.addEventListener("mouseup", () => {
-    if (isDragging) {
-      isDragging = false;
-      header.style.cursor = "grab";
-      document.body.style.userSelect = "";
-    }
+  ["mouseup", "touchend"].forEach((el) => {
+    document.addEventListener(el, () => {
+      if (isDragging) {
+        isDragging = false;
+        header.style.cursor = "grab";
+        document.body.style.userSelect = "";
+      }
+    });
   });
 });
 
