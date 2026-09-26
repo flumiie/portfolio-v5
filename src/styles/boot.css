@@ -1,0 +1,70 @@
+#boot-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000000;
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: monospace;
+}
+
+.boot-container {
+  border: 1px solid var(--accent-color);
+  padding: 30px;
+  background-color: #050505;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(255, 74, 0, 0.2);
+  width: 350px;
+}
+
+.boot-container h2 {
+  color: var(--accent-color);
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  letter-spacing: 2px;
+}
+
+.boot-container p {
+  color: #888;
+  font-size: 0.8rem;
+  margin-bottom: 20px;
+}
+
+.boot-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#boot-username-input {
+  background: #0a0a0a;
+  border: 1px solid #333;
+  color: #fff;
+  padding: 10px;
+  font-family: monospace;
+  text-align: center;
+  outline: none;
+}
+
+#boot-username-input:focus {
+  border-color: var(--accent-color);
+}
+
+#boot-btn {
+  background-color: var(--accent-color);
+  color: #000;
+  border: none;
+  padding: 10px;
+  font-family: monospace;
+  font-weight: bold;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+
+#boot-btn:hover {
+  opacity: 0.9;
+}

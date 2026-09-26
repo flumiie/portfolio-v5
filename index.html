@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FER_OS // Mission Control</title>
+  </head>
+  <body>
+    <!-- Boot Screen -->
+    <div id="boot-screen">
+      <div class="boot-container">
+        <h2>// BOOT SEQUENCE</h2>
+        <p>Enter operator username to initialize session:</p>
+        <div class="boot-input-group">
+          <input
+            type="text"
+            id="boot-username-input"
+            placeholder="Operator name..."
+            autofocus
+            autocomplete="off"
+          />
+          <button id="boot-btn">INITIALIZE</button>
+        </div>
+      </div>
+    </div>
+    <!-- Top Bar -->
+    <div id="top-bar">
+      <div class="sys-title">FerOS v1.0.0</div>
+      <div id="sys-clock">00:00:00</div>
+    </div>
+    <!-- Desktop -->
+    <div id="desktop">
+      <!-- Desktop Icons -->
+      <div id="desktop-icons">
+        <div class="shortcut-icon" id="icon-archive">
+          <img
+            src="/public/archive-icon.png"
+            class="icon-img"
+            alt="Log Archive"
+          />
+          <p class="icon-label">Log_Archive.exe</p>
+        </div>
+        <div class="shortcut-icon" id="icon-iss">
+          <img src="/public/iss-icon.png" class="icon-img" alt="ISS Radar" />
+          <p class="icon-label">ISS_RADAR.exe</p>
+        </div>
+        <div class="shortcut-icon" id="icon-term">
+          <img
+            src="/public/terminal-icon.png"
+            class="icon-img"
+            alt="Terminal"
+          />
+          <p class="icon-label">Terminal.exe</p>
+        </div>
+        <div class="shortcut-icon" id="icon-notepad">
+          <img src="/public/notepad-icon.png" class="icon-img" alt="Notepad" />
+          <p class="icon-label">Notepad.exe</p>
+        </div>
+        <div class="shortcut-icon" id="icon-settings">
+          <img src="/public/setting-icon.svg" class="icon-img" alt="Settings" />
+          <p class="icon-label">Settings.exe</p>
+        </div>
+      </div>
+      <!-- Welcome window -->
+      <div class="window" id="win-welcome">
+        <div class="window-header">
+          <span class="window-title">SYS_INITIALIZATION.LOG</span>
+          <button class="window-close-btn">[X]</button>
+        </div>
+        <div class="window-content">
+          <p class="status-tag">[ AUTHENTICATED_SESSION ]</p>
+          <h1>WELCOME TO THE CORE</h1>
+          <p>
+            System initialization complete. FerOS telemetry networks are online.
+            This workspace provides a direct interface to low-level background
+            pipelines and custom applications.
+          </p>
+          <div class="pipeline-links">
+            <a href="https://github.com/flumiie" target="_blank"
+              >> OPEN_GITHUB_PIPELINE</a
+            >
+          </div>
+        </div>
+      </div>
+      <!-- Log Archive -->
+      <div
+        class="window"
+        id="win-archive"
+        style="display: none; top: 25%; left: 30%"
+      >
+        <div class="window-header">
+          <span class="window-title">LOG_ARCHIVE.EXE</span>
+          <button class="window-close-btn">[X]</button>
+        </div>
+        <div class="window-content app-layout">
+          <div id="archive-sidebar"></div>
+          <div id="archive-viewer">
+            <p class="status-tag">[ SELECT A LOG ENTRY FROM THE SIDEBAR ]</p>
+          </div>
+        </div>
+      </div>
+      <!-- ISS Tracker -->
+      <div
+        class="window"
+        id="win-iss"
+        style="display: none; top: 15%; left: 50%; width: 380px"
+      >
+        <div class="window-header">
+          <span class="window-title">ISS_RADAR.EXE</span>
+          <button class="window-close-btn">[X]</button>
+        </div>
+        <div class="window-content" id="iss-dashboard">
+          <p class="status-tag">[ ESTABLISHING ORBITAL UPLINK... ]</p>
+        </div>
+      </div>
+      <!-- Terminal -->
+      <div
+        class="window"
+        id="win-term"
+        style="display: none; top: 20%; left: 35%; width: 450px; height: 320px"
+      >
+        <div class="window-header">
+          <span class="window-title">TERMINAL.EXE</span>
+          <button class="window-close-btn">[X]</button>
+        </div>
+        <div class="window-content" id="terminal-body">
+          <div id="terminal-output">
+            <p style="color: #666">FerOS Terminal [Version 2.0.4]</p>
+            <p style="color: #666">Type 'help' for available commands.</p>
+            <br />
+          </div>
+          <div id="terminal-input-line">
+            <span style="color: var(--accent-color)">root@fer-os:~$</span>
+            <input
+              type="text"
+              id="terminal-input"
+              autofocus
+              autocomplete="off"
+              spellcheck="false"
+            />
+          </div>
+        </div>
+      </div>
+      <!-- Notepad -->
+      <div
+        class="window"
+        id="win-notepad"
+        style="display: none; top: 30%; left: 45%; width: 420px; height: 320px"
+      >
+        <div class="window-header">
+          <span class="window-title">NOTEPAD.EXE</span>
+          <button class="window-close-btn">[X]</button>
+        </div>
+        <div
+          class="window-content"
+          style="
+            background: #050505;
+            padding: 10px;
+            height: calc(100% - 40px);
+            display: flex;
+            flex-direction: column;
+          "
+        >
+          <textarea
+            id="notepad-textarea"
+            placeholder="Type your notes here... (Auto-saved)"
+            style="
+              width: 100%;
+              height: 100%;
+              background: #0a0a0a;
+              color: var(--accent-color);
+              border: 1px solid #222;
+              font-family: monospace;
+              font-size: 0.9rem;
+              padding: 8px;
+              resize: none;
+              outline: none;
+            "
+          ></textarea>
+        </div>
+      </div>
+      <!-- Settings -->
+      <div
+        class="window"
+        id="win-settings"
+        style="display: none; top: 25%; left: 40%; width: 400px; height: 260px"
+      >
+        <div class="window-header">
+          <span class="window-title">SETTINGS.EXE</span>
+          <button class="window-close-btn">[X]</button>
+        </div>
+        <div
+          class="window-content"
+          id="settings-body"
+          style="
+            background: #050505;
+            padding: 15px;
+            color: #fff;
+            font-family: monospace;
+          "
+        >
+          <h3 style="color: var(--accent-color); margin-bottom: 5px">
+            // SYSTEM PREFERENCES
+          </h3>
+          <p style="font-size: 0.8rem; color: #888; margin-bottom: 20px">
+            Configure FerOS visual parameters and colorways.
+          </p>
+
+          <label style="display: block; font-size: 0.85rem; margin-bottom: 10px"
+            >Select Accent Color Theme:</label
+          >
+          <div style="display: flex; gap: 12px">
+            <button
+              class="theme-btn"
+              data-color="#ff4a00"
+              style="
+                background: #ff4a00;
+                color: #000;
+                border: none;
+                padding: 10px 15px;
+                font-family: monospace;
+                font-weight: bold;
+                cursor: pointer;
+              "
+            >
+              Space Orange
+            </button>
+            <button
+              class="theme-btn"
+              data-color="#00ffcc"
+              style="
+                background: #00ffcc;
+                color: #000;
+                border: none;
+                padding: 10px 15px;
+                font-family: monospace;
+                font-weight: bold;
+                cursor: pointer;
+              "
+            >
+              Cyber Blue
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Start Menu -->
+    <div id="start-menu" style="display: none">
+      <div class="start-menu-header">SYSTEM_APPS // MENU</div>
+      <div class="start-menu-item" id="menu-archive">
+        <img
+          src="/public/archive-icon.png"
+          class="start-icon"
+          alt="Log Archive"
+        />
+        <p class="icon-label">Log_Archive.exe</p>
+      </div>
+      <div class="start-menu-item" id="menu-iss">
+        <img src="/public/iss-icon.png" class="start-icon" alt="ISS Radar" />
+        <p class="icon-label">ISS_Radar.exe</p>
+      </div>
+      <div class="start-menu-item" id="menu-term">
+        <span>>_</span> Terminal.exe
+      </div>
+      <div class="start-menu-item" id="menu-notepad">
+        <img src="/public/notepad-icon.png" class="start-icon" alt="Notepad" />
+        <p class="icon-label">Notepad.exe</p>
+      </div>
+      <div class="start-menu-item" id="menu-settings">
+        <img src="/public/setting-icon.svg" class="start-icon" alt="Settings" />
+        Settings.exe
+      </div>
+    </div>
+    <!-- Taskbar -->
+    <div id="taskbar">
+      <button id="start-btn">[ LAUNCH ]</button>
+      <div id="running-apps">
+        <div class="taskbar-app-tab active" id="tab-welcome">SYS_INIT</div>
+        <div
+          class="taskbar-app-tab"
+          id="tab-archive"
+          style="display: none; color: var(--accent-color)"
+        >
+          LOG_ARCHIVE
+        </div>
+        <div
+          class="taskbar-app-tab"
+          id="tab-iss"
+          style="display: none; color: var(--accent-color)"
+        >
+          ISS_RADAR
+        </div>
+        <div
+          class="taskbar-app-tab"
+          id="tab-term"
+          style="display: none; color: var(--accent-color)"
+        >
+          TERMINAL
+        </div>
+        <div
+          class="taskbar-app-tab"
+          id="tab-notepad"
+          style="display: none; color: var(--accent-color)"
+        >
+          NOTEPAD
+        </div>
+        <div
+          class="taskbar-app-tab"
+          id="tab-settings"
+          style="display: none; color: var(--accent-color)"
+        >
+          SETTINGS
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+#iss-dashboard {
+  background-color: #020a05;
+  padding: 1rem;
+  font-family: monospace;
+}
+
+.iss-status-header {
+  text-align: center;
+  color: #4CAF50;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  border-bottom: 1px dashed #222;
+  padding-bottom: 0.5rem;
+}
+
+.data-row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #111;
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.data-label {
+  color: var(--text-dim);
+}
+
+.data-value {
+  color: #00ffcc;
+  text-shadow: 0 0 5px rgba(0, 255, 204, 0.4);
+}
