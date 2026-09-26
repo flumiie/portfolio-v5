@@ -1,33 +1,29 @@
-import './styles/style.css';
-import './styles/boot.css';
-import './iss_radar.js';
-import './terminal.js';
-import './notepad.js';
-import './settings.js'
-import { initStartMenu } from './start_menu.js';
+import "./styles/style.css";
+import "./styles/boot.css";
+import "./iss_radar.js";
+import "./terminal.js";
+import "./notepad.js";
+import "./settings.js";
+import { initStartMenu } from "./start_menu.js";
 
 initStartMenu();
 
 // Save the theme color
 const savedTheme = localStorage.getItem("theme");
 if (savedTheme) {
-  document.documentElement.style.setProperty('--acent-color', savedTheme);
+  document.documentElement.style.setProperty("--accent-color", savedTheme);
 }
 
-const clockElement = document.querySelector("#sys-clock")
+const clockElement = document.querySelector("#sys-clock");
 
 const updateClock = () => {
   const now = new Date();
-  const timeString = now.toTimeString().split(' ')[0];
+  const timeString = now.toTimeString().split(" ")[0];
   clockElement.textContent = timeString;
 };
 
 setInterval(updateClock, 1000);
 updateClock();
-
-const winWelcome = document.querySelector("#win-welcome");
-const closeBtnWelcome = winWelcome.querySelector(".window-close-btn");
-const tabWelcome = document.querySelector("#running-apps .taskbar-app-tab");
 
 // Open and close Windows func
 // Open Window
@@ -41,49 +37,36 @@ const openWindow = (win, tab) => {
   if (tab) tab.classList.add("active");
 };
 
-closeBtnWelcome.addEventListener("click", () => {
-  closeWindow(winWelcome, tabWelcome);
-})
-tabWelcome.addEventListener("click", () => {
-  if (winWelcome.style.display === "none")  {
-    openWindow(winWelcome, tabWelcome);
-    highestZIndex++;
-    winWelcome.style.zIndex = highestZIndex
-  } else {
-    closeWindow(winWelcome, tabWelcome)
-  }
-});
-
 // Draggable Window
-const windows = document.querySelectorAll('.window');
+const windows = document.querySelectorAll(".window");
 let highestZIndex = 10;
 
-windows.forEach(win => {
-  const header = win.querySelector('.window-header');
+windows.forEach((win) => {
+  const header = win.querySelector(".window-header");
 
-  let isDragging= false;
+  let isDragging = false;
   let offsetX = 0;
   let offsetY = 0;
 
-  win.addEventListener('mousedown', () => {
+  win.addEventListener("mousedown", () => {
     highestZIndex++;
     win.style.zIndex = highestZIndex;
   });
 
-  header.addEventListener('mousedown', (e) => {
-    if (e.target.classList.contains('window-close-btn')) return;
+  header.addEventListener("mousedown", (e) => {
+    if (e.target.classList.contains("window-close-btn")) return;
 
     isDragging = true;
     offsetX = e.clientX - win.offsetLeft;
     offsetY = e.clientY - win.offsetTop;
-    
-    header.style.cursor = 'grabbing';
-    document.body.style.userSelect = 'none';
+
+    header.style.cursor = "grabbing";
+    document.body.style.userSelect = "none";
   });
 
-  document.addEventListener('mousemove', (e) => {
+  document.addEventListener("mousemove", (e) => {
     if (!isDragging) return;
-    
+
     let newX = e.clientX - offsetX;
     let newY = e.clientY - offsetY;
 
@@ -102,11 +85,11 @@ windows.forEach(win => {
   });
 
   // Fin du glissement
-  document.addEventListener('mouseup', () => {
+  document.addEventListener("mouseup", () => {
     if (isDragging) {
       isDragging = false;
-      header.style.cursor = 'grab';
-      document.body.style.userSelect = '';
+      header.style.cursor = "grab";
+      document.body.style.userSelect = "";
     }
   });
 });
@@ -121,7 +104,9 @@ const initApp = (iconId, winId, tabId) => {
   if (icon) {
     icon.addEventListener("click", (e) => {
       e.stopPropagation();
-      document.querySelectorAll('.shortcut-icon').forEach(el => el.classList.remove("selected"));
+      document
+        .querySelectorAll(".shortcut-icon")
+        .forEach((el) => el.classList.remove("selected"));
       icon.classList.add("selected");
     });
   }
@@ -136,6 +121,18 @@ const initApp = (iconId, winId, tabId) => {
     });
   }
 
+  tab.addEventListener("click", () => {
+    if (win.style.display === "none") {
+      openWindow(win, tab);
+      tab.style.color = "var(--accent-color)";
+      highestZIndex++;
+      win.style.zIndex = highestZIndex;
+    } else {
+      closeWindow(win, tab);
+      tab.style.color = "var(--text-dim)";
+    }
+  });
+
   if (closeBtn && win && tab) {
     closeBtn.addEventListener("click", () => {
       win.style.display = "none";
@@ -146,9 +143,12 @@ const initApp = (iconId, winId, tabId) => {
 };
 
 document.addEventListener("click", () => {
-  document.querySelectorAll('.shortcut-icon').forEach(icon => icon.classList.remove("selected"));
+  document
+    .querySelectorAll(".shortcut-icon")
+    .forEach((icon) => icon.classList.remove("selected"));
 });
 
+initApp("#icon-welcome", "#win-welcome", "#tab-welcome");
 initApp("#icon-archive", "#win-archive", "#tab-archive");
 initApp("#icon-iss", "#win-iss", "#tab-iss");
 initApp("#icon-term", "#win-term", "#tab-term");
@@ -159,18 +159,21 @@ const archiveData = [
   {
     title: "SYS_TELEMETRY.LOG",
     date: "2026-07-21",
-    content: "Telemetry tracking system successfully integrated into FerOS core architecture. Window pipeline tests show stable performance at 60fps. Main orbital dashboard is active."
+    content:
+      "Telemetry tracking system successfully integrated into FerOS core architecture. Window pipeline tests show stable performance at 60fps. Main orbital dashboard is active.",
   },
   {
     title: "ARIANE6_BOOSTER.LOG",
     date: "2026-01-15",
-    content: "Solid rocket booster CAD profile complete. Loft operations successful. Static fire chamber pressure simulated and stabilized. Ready for final schematic review."
+    content:
+      "Solid rocket booster CAD profile complete. Loft operations successful. Static fire chamber pressure simulated and stabilized. Ready for final schematic review.",
   },
   {
     title: "JWST_MIRROR_ASSY.LOG",
     date: "2025-12-10",
-    content: "James Webb Space Telescope rear instrument chassis and primary mirror esquisse complete. Structural alignment within required tolerance for maquette assembly."
-  }
+    content:
+      "James Webb Space Telescope rear instrument chassis and primary mirror esquisse complete. Structural alignment within required tolerance for maquette assembly.",
+  },
 ];
 
 const winArchive = document.querySelector("#win-archive");
@@ -179,13 +182,13 @@ const viewer = document.querySelector("#archive-viewer");
 
 const displayLogContent = (index) => {
   const log = archiveData[index];
-  
+
   const winTitle = winArchive.querySelector(".window-title");
-  winTitle.textContent = `LOG_ARCHIVE.EXE // ${log.title}`; 
-  
+  winTitle.textContent = `LOG_ARCHIVE.EXE // ${log.title}`;
+
   if (winArchive) {
     const winTitle = winArchive.querySelector(".window-title");
-    if (winTitle) winTitle.textContent = `LOG_ARCHIVE.EXE // ${log.title}`; 
+    if (winTitle) winTitle.textContent = `LOG_ARCHIVE.EXE // ${log.title}`;
   }
 
   viewer.innerHTML = `
@@ -198,14 +201,18 @@ const displayLogContent = (index) => {
 archiveData.forEach((item, index) => {
   const entry = document.createElement("div");
   entry.classList.add("sidebar-entry");
-  
+
   entry.innerHTML = `
-    <h4>${item.title}</h4>
-    <span>${item.date}</span>
+    <span class="noselect">
+      <h4>${item.title}</h4>
+      <span>${item.date}</span>
+    </span>
   `;
-  
+
   entry.addEventListener("click", () => {
-    document.querySelectorAll(".sidebar-entry").forEach(el => el.classList.remove("active"));
+    document
+      .querySelectorAll(".sidebar-entry")
+      .forEach((el) => el.classList.remove("active"));
     entry.classList.add("active");
     displayLogContent(index);
   });

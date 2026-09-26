@@ -5,7 +5,7 @@ const inputField = document.querySelector("#terminal-input");
 const promptUserSpan = document.querySelector("#terminal-prompt-user");
 
 // Get UserName
-let currentUsername = localStorage.getItem("user") || "root";
+let currentUsername = localStorage.getItem("user") || "flumi";
 if (promptUserSpan) {
   promptUserSpan.textContent = `${currentUsername}@fer-os:~$`;
 }
@@ -42,7 +42,7 @@ if (bootInput) {
   });
 }
 
-const printToTerminal = (text, color = "#00ffcc") => {
+const printf = (text, color = "#00ffcc") => {
   const p = document.createElement("p");
   p.style.color = color;
   p.textContent = text;
@@ -53,51 +53,62 @@ const printToTerminal = (text, color = "#00ffcc") => {
 
 const handleCommand = (cmd) => {
   const cleanCmd = cmd.trim().toLowerCase();
-  printToTerminal(`${currentUsername}@fer-os:~$ ${cmd}`, "#888");
+  printf(`${currentUsername}@fer-os:~$ ${cmd}`, "#888");
 
   switch (cleanCmd) {
     case "help":
-      printToTerminal("Available commands:");
-      printToTerminal("  help   - Show this help menu");
-      printToTerminal("  date   - Display current system time");
-      printToTerminal("  iss    - Quick query on ISS telemetry");
-      printToTerminal("  clear  - Clear terminal screen");
-      printToTerminal("  whoami - Display current session user");
+      printf("Available commands:");
+      printf(" help - Show this help menu");
+      printf(" date - Display current system time");
+      printf(" iss - Quick query on ISS telemetry");
+      printf(" portf - Check out my portfolio in CLI");
+      printf(" whoami - Display current session user");
+      printf(" clear, cls  - Clear terminal screen");
       break;
 
     case "date":
-      printToTerminal(new Date().toString());
+      printf(new Date().toString());
       break;
 
     case "iss":
-      printToTerminal("Fetching ISS status via orbital relay...");
+      printf("Fetching ISS status via orbital relay...");
       fetch("https://api.wheretheiss.at/v1/satellites/25544")
         .then((res) => res.json())
         .then((data) => {
-          printToTerminal(
+          printf(
             `-> Lat: ${data.latitude.toFixed(2)} | Lon: ${data.longitude.toFixed(2)} | Alt: ${data.altitude.toFixed(0)} km`,
           );
         })
-        .catch(() => printToTerminal("Error: Orbital uplink failed.", "red"));
+        .catch(() => printf("Error: Orbital uplink failed.", "red"));
+      break;
+
+    case "portf":
+      printf("-----------------------------------------------------");
+      printf("Welcome to the portfolio of Ferick Andrew a.k.a flumi");
+      printf("-----------------------------------------------------");
+      printf("-", "transparent");
+      printf("lorem");
+      printf("-", "transparent");
+      break;
+
+    case "whoami":
+      printf(`${currentUsername} [Authorized Mission Control Operator]`);
       break;
 
     case "clear":
       outputArea.innerHTML = "";
       break;
-
-    case "whoami":
-      printToTerminal(
-        `${currentUsername} [Authorized Mission Control Operator]`,
-      );
+    case "cls":
+      outputArea.innerHTML = "";
       break;
 
     case "":
       break;
 
     default:
-      printToTerminal(
+      printf(
         `Command not recognized: '${cmd}'. Type 'help' for options.`,
-        "#ff4a00",
+        "#ff0000",
       );
       break;
   }

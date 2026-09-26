@@ -34,10 +34,11 @@ export const initStartMenu = () => {
         win.style.display = "block";
         tab.style.display = "block";
         tab.classList.add("active");
-        
+        tab.style.color = "var(--accent-color)";
+
         menuZIndex++;
         win.style.zIndex = menuZIndex;
-        
+
         startMenu.style.display = "none";
       });
     }
@@ -48,4 +49,5 @@ export const initStartMenu = () => {
   setupAppShortcut("#menu-iss", "#win-iss", "#tab-iss");
   setupAppShortcut("#menu-term", "#win-term", "#tab-term");
   setupAppShortcut("#menu-notepad", "#win-notepad", "#tab-notepad");
+  setupAppShortcut("#menu-settings", "#win-settings", "#tab-settings");
 };

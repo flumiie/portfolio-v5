@@ -14,18 +14,28 @@
 }
 
 body {
-  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
   background-color: var(--bg-color);
   color: var(--text-main);
   height: 100vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  
-  background-image: 
+
+  background-image:
     linear-gradient(rgba(255, 74, 0, 0.02) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 74, 0, 0.02) 1px, transparent 1px);
   background-size: 25px 25px;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
 }
 
 /* Top Bar */
@@ -110,12 +120,11 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  z-index: 5; 
+  z-index: 5;
 }
 
 .shortcut-icon {
-  width: 90px;
-  padding: 0.5rem;
+  width: 100px;
   text-align: center;
   cursor: pointer;
   border: 1px solid transparent;
@@ -136,7 +145,7 @@ body {
 }
 
 .shortcut-icon .icon-label {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   color: #b0b0b0;
   margin: 0;
   word-wrap: break-word;
@@ -179,6 +188,8 @@ p {
   font-size: 0.9rem;
   line-height: 1.6;
   color: #b0b0b0;
+}
+.window-content p {
   margin-bottom: 1.5rem;
 }
 
@@ -210,6 +221,10 @@ p {
   font-family: inherit;
 }
 
+#start-menu .icon-label {
+  color: #fff;
+}
+
 .start-menu-header {
   background-color: var(--accent-color);
   color: #000;
@@ -228,7 +243,9 @@ p {
   cursor: pointer;
   font-size: 0.85rem;
   border-bottom: 1px solid #111;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .start-menu-item:hover {
@@ -290,7 +307,6 @@ p {
   color: var(--accent-color);
   background-color: color-mix(in srgb, var(--accent-color) 10%, transparent);
 }
-
 
 /* App Layout */
 .app-layout {

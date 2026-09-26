@@ -33,33 +33,17 @@
     <div id="desktop">
       <!-- Desktop Icons -->
       <div id="desktop-icons">
+        <div class="shortcut-icon" id="icon-welcome">
+          <img src="/bug.png" class="icon-img" alt="System Initialization" />
+          <p class="icon-label">SYS_INIT</p>
+        </div>
         <div class="shortcut-icon" id="icon-archive">
-          <img
-            src="/public/archive-icon.png"
-            class="icon-img"
-            alt="Log Archive"
-          />
-          <p class="icon-label">Log_Archive.exe</p>
+          <img src="/archive-icon.png" class="icon-img" alt="Log Archive" />
+          <p class="icon-label">Log_Archive</p>
         </div>
         <div class="shortcut-icon" id="icon-iss">
-          <img src="/public/iss-icon.png" class="icon-img" alt="ISS Radar" />
-          <p class="icon-label">ISS_RADAR.exe</p>
-        </div>
-        <div class="shortcut-icon" id="icon-term">
-          <img
-            src="/public/terminal-icon.png"
-            class="icon-img"
-            alt="Terminal"
-          />
-          <p class="icon-label">Terminal.exe</p>
-        </div>
-        <div class="shortcut-icon" id="icon-notepad">
-          <img src="/public/notepad-icon.png" class="icon-img" alt="Notepad" />
-          <p class="icon-label">Notepad.exe</p>
-        </div>
-        <div class="shortcut-icon" id="icon-settings">
-          <img src="/public/setting-icon.svg" class="icon-img" alt="Settings" />
-          <p class="icon-label">Settings.exe</p>
+          <img src="/iss-icon.png" class="icon-img" alt="ISS Radar" />
+          <p class="icon-label">ISS_RADAR</p>
         </div>
       </div>
       <!-- Welcome window -->
@@ -90,7 +74,7 @@
         style="display: none; top: 25%; left: 30%"
       >
         <div class="window-header">
-          <span class="window-title">LOG_ARCHIVE.EXE</span>
+          <span class="window-title">LOG_ARCHIVE</span>
           <button class="window-close-btn">[X]</button>
         </div>
         <div class="window-content app-layout">
@@ -102,12 +86,12 @@
       </div>
       <!-- ISS Tracker -->
       <div
-        class="window"
+        class="window noselect"
         id="win-iss"
         style="display: none; top: 15%; left: 50%; width: 380px"
       >
         <div class="window-header">
-          <span class="window-title">ISS_RADAR.EXE</span>
+          <span class="window-title">ISS_RADAR</span>
           <button class="window-close-btn">[X]</button>
         </div>
         <div class="window-content" id="iss-dashboard">
@@ -118,10 +102,10 @@
       <div
         class="window"
         id="win-term"
-        style="display: none; top: 20%; left: 35%; width: 450px; height: 320px"
+        style="display: none; top: 20%; left: 35%; width: 1400px; height: 400px"
       >
         <div class="window-header">
-          <span class="window-title">TERMINAL.EXE</span>
+          <span class="window-title">TERMINAL</span>
           <button class="window-close-btn">[X]</button>
         </div>
         <div class="window-content" id="terminal-body">
@@ -131,7 +115,7 @@
             <br />
           </div>
           <div id="terminal-input-line">
-            <span style="color: var(--accent-color)">root@fer-os:~$</span>
+            <span style="color: var(--accent-color)">flumi@fer-os:~$</span>
             <input
               type="text"
               id="terminal-input"
@@ -146,10 +130,10 @@
       <div
         class="window"
         id="win-notepad"
-        style="display: none; top: 30%; left: 45%; width: 420px; height: 320px"
+        style="display: none; top: 30%; left: 45%; width: 600px; height: 400px"
       >
         <div class="window-header">
-          <span class="window-title">NOTEPAD.EXE</span>
+          <span class="window-title">NOTEPAD</span>
           <button class="window-close-btn">[X]</button>
         </div>
         <div
@@ -187,7 +171,7 @@
         style="display: none; top: 25%; left: 40%; width: 400px; height: 260px"
       >
         <div class="window-header">
-          <span class="window-title">SETTINGS.EXE</span>
+          <span class="window-title">SETTINGS</span>
           <button class="window-close-btn">[X]</button>
         </div>
         <div
@@ -210,7 +194,7 @@
           <label style="display: block; font-size: 0.85rem; margin-bottom: 10px"
             >Select Accent Color Theme:</label
           >
-          <div style="display: flex; gap: 12px">
+          <div style="display: flex; gap: 16px">
             <button
               class="theme-btn"
               data-color="#ff4a00"
@@ -241,42 +225,75 @@
             >
               Cyber Blue
             </button>
+            <button
+              class="theme-btn"
+              data-color="#f70fe8"
+              style="
+                background: #f70fe8;
+                color: #000;
+                border: none;
+                padding: 10px 15px;
+                font-family: monospace;
+                font-weight: bold;
+                cursor: pointer;
+              "
+            >
+              Neon Pink
+            </button>
+            <button
+              class="theme-btn"
+              data-color="#00ff00"
+              style="
+                background: #00ff00;
+                color: #000;
+                border: none;
+                padding: 10px 15px;
+                font-family: monospace;
+                font-weight: bold;
+                cursor: pointer;
+              "
+            >
+              Hacker Green
+            </button>
           </div>
         </div>
       </div>
     </div>
     <!-- Start Menu -->
-    <div id="start-menu" style="display: none">
-      <div class="start-menu-header">SYSTEM_APPS // MENU</div>
+    <div id="start-menu" class="noselect" style="display: none">
+      <div class="start-menu-header">MENU</div>
       <div class="start-menu-item" id="menu-archive">
-        <img
-          src="/public/archive-icon.png"
-          class="start-icon"
-          alt="Log Archive"
-        />
-        <p class="icon-label">Log_Archive.exe</p>
+        <img src="/archive-icon.png" class="start-icon" alt="Log Archive" />
+        <p class="icon-label">Log_Archive</p>
       </div>
       <div class="start-menu-item" id="menu-iss">
-        <img src="/public/iss-icon.png" class="start-icon" alt="ISS Radar" />
-        <p class="icon-label">ISS_Radar.exe</p>
+        <img src="/iss-icon.png" class="start-icon" alt="ISS Radar" />
+        <p class="icon-label">ISS_Radar</p>
       </div>
       <div class="start-menu-item" id="menu-term">
-        <span>>_</span> Terminal.exe
+        <span>>_</span>
+        <p class="icon-label">Terminal</p>
       </div>
       <div class="start-menu-item" id="menu-notepad">
-        <img src="/public/notepad-icon.png" class="start-icon" alt="Notepad" />
-        <p class="icon-label">Notepad.exe</p>
+        <img src="/notepad-icon.png" class="start-icon" alt="Notepad" />
+        <p class="icon-label">Notepad</p>
       </div>
       <div class="start-menu-item" id="menu-settings">
-        <img src="/public/setting-icon.svg" class="start-icon" alt="Settings" />
-        Settings.exe
+        <img src="/setting-icon.svg" class="start-icon" alt="Settings" />
+        <p class="icon-label">Settings</p>
       </div>
     </div>
     <!-- Taskbar -->
     <div id="taskbar">
-      <button id="start-btn">[ LAUNCH ]</button>
+      <button id="start-btn">[ MENU ]</button>
       <div id="running-apps">
-        <div class="taskbar-app-tab active" id="tab-welcome">SYS_INIT</div>
+        <div
+          class="taskbar-app-tab active"
+          id="tab-welcome"
+          style="display: none; color: var(--accent-color)"
+        >
+          SYS_INIT
+        </div>
         <div
           class="taskbar-app-tab"
           id="tab-archive"
@@ -290,6 +307,20 @@
           style="display: none; color: var(--accent-color)"
         >
           ISS_RADAR
+        </div>
+        <div
+          class="taskbar-app-tab"
+          id="tab-whoami"
+          style="display: none; color: var(--accent-color)"
+        >
+          WHOAMI
+        </div>
+        <div
+          class="taskbar-app-tab"
+          id="tab-whoami"
+          style="display: none; color: var(--accent-color)"
+        >
+          WHOAMI
         </div>
         <div
           class="taskbar-app-tab"
