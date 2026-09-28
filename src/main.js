@@ -48,24 +48,31 @@ windows.forEach((win) => {
   let offsetX = 0;
   let offsetY = 0;
 
-  ["mousedown", "touchstart"].forEach((el) => {
-    win.addEventListener(el, () => {
-      highestZIndex++;
-      win.style.zIndex = highestZIndex;
-    });
-    header.addEventListener(el, (e) => {
-      if (e.target.classList.contains("window-close-btn")) return;
-
-      isDragging = true;
-      offsetX = e.clientX - win.offsetLeft;
-      offsetY = e.clientY - win.offsetTop;
-
-      header.style.cursor = "grabbing";
-      document.body.style.userSelect = "none";
-    });
+  // Bring window to front
+  win.addEventListener("pointerdown", () => {
+    highestZIndex++;
+    win.style.zIndex = highestZIndex;
   });
 
-  document.addEventListener("mousemove", (e) => {
+  // Start dragging
+  header.addEventListener("pointerdown", (e) => {
+    if (e.target.closest(".window-close-btn")) return;
+
+    isDragging = true;
+
+    offsetX = e.clientX - win.offsetLeft;
+    offsetY = e.clientY - win.offsetTop;
+
+    header.style.cursor = "grabbing";
+
+    // Keep receiving pointer events even if the pointer leaves the header
+    header.setPointerCapture(e.pointerId);
+
+    document.body.style.userSelect = "none";
+  });
+
+  // Drag
+  header.addEventListener("pointermove", (e) => {
     if (!isDragging) return;
 
     let newX = e.clientX - offsetX;
@@ -76,25 +83,28 @@ windows.forEach((win) => {
     const maxX = window.innerWidth - win.offsetWidth;
     const maxY = window.innerHeight - win.offsetHeight - 45;
 
-    if (newX < minX) newX = minX;
-    if (newX > maxX) newX = maxX;
-    if (newY < minY) newY = minY;
-    if (newY > maxY) newY = maxY;
+    newX = Math.max(minX, Math.min(newX, maxX));
+    newY = Math.max(minY, Math.min(newY, maxY));
 
     win.style.left = `${newX}px`;
     win.style.top = `${newY}px`;
   });
 
-  // Fin du glissement
-  ["mouseup", "touchend"].forEach((el) => {
-    document.addEventListener(el, () => {
-      if (isDragging) {
-        isDragging = false;
-        header.style.cursor = "grab";
-        document.body.style.userSelect = "";
-      }
-    });
-  });
+  // Stop dragging
+  const stopDragging = (e) => {
+    if (!isDragging) return;
+
+    isDragging = false;
+    header.style.cursor = "grab";
+    document.body.style.userSelect = "";
+
+    if (e.pointerId !== undefined) {
+      header.releasePointerCapture?.(e.pointerId);
+    }
+  };
+
+  header.addEventListener("pointerup", stopDragging);
+  header.addEventListener("pointercancel", stopDragging);
 });
 
 // App Initialization
