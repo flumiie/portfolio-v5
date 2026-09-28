@@ -122,6 +122,24 @@ const initApp = (iconId, winId, tabId) => {
         .forEach((el) => el.classList.remove("selected"));
       icon.classList.add("selected");
     });
+
+    // Double tap tracker for touch devices
+    let lastTap = 0;
+    icon.addEventListener("pointerdown", (e) => {
+      if (!window.matchMedia("(pointer: coarse)").matches) return;
+      const currentTime = new Date().getTime();
+      const tapLength = currentTime - lastTap;
+      if (tapLength < 300 && tapLength > 0) {
+        if (win && tab) {
+          win.style.display = "block";
+          tab.style.display = "block";
+          tab.classList.add("active");
+          highestZIndex++;
+          win.style.zIndex = highestZIndex;
+        }
+      }
+      lastTap = currentTime;
+    });
   }
 
   if (icon && win && tab) {

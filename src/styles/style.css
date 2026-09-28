@@ -38,6 +38,38 @@ body {
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
+/* Rotate Screen Overlay */
+#rotate-screen {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+@media (orientation: portrait) and (max-width: 800px) {
+  #rotate-screen {
+    display: flex;
+  }
+}
+
+.rotate-container {
+  color: var(--accent-color);
+  font-family: monospace;
+}
+
+.rotate-container h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
 /* Top Bar */
 #top-bar {
   height: 30px;
