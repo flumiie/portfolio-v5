@@ -107,6 +107,42 @@ windows.forEach((win) => {
   header.addEventListener("pointercancel", stopDragging);
 });
 
+// Fullscreen Handler
+const fsOverlay = document.querySelector("#fullscreen-overlay");
+const fsBtn = document.querySelector("#fullscreen-btn");
+const fsError = document.querySelector("#fs-error");
+
+if (fsBtn && fsOverlay) {
+  fsBtn.addEventListener("click", () => {
+    const elem = document.documentElement;
+    const requestFs =
+      elem.requestFullscreen ||
+      elem.webkitRequestFullscreen ||
+      elem.msRequestFullscreen;
+
+    if (requestFs) {
+      requestFs.call(elem)
+        .then(() => {
+          fsOverlay.style.display = "none";
+        })
+        .catch((err) => {
+          console.error(`Error attempting to enable full-screen mode: ${err.message}`, err);
+          if (fsError) {
+            fsError.textContent = `Fullscreen failed: ${err.message}`;
+            fsError.style.display = "block";
+          }
+        });
+    } else {
+      console.error("Fullscreen API not supported");
+      if (fsError) {
+        fsError.textContent = "Fullscreen not supported on this device";
+        fsError.style.display = "block";
+      }
+    }
+  });
+}
+
+
 // App Initialization
 const initApp = (iconId, winId, tabId) => {
   const icon = document.querySelector(iconId);
