@@ -15,7 +15,6 @@ dist-ssr
 code.txt
 
 # Editor directories and files
-.agents/
 .vscode/*
 !.vscode/extensions.json
 .idea
@@ -25,8 +24,3 @@ code.txt
 *.njsproj
 *.sln
 *.sw?
-
-# Claude local configurations and ephemeral data
-.claude/settings.local.json
-.claude/memory/
-.claude/worktrees/
